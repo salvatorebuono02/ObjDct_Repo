@@ -3,3 +3,4 @@ __pycache__
 raw_data
 dior_data
 datasets
+model.pth
