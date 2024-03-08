@@ -46,7 +46,7 @@ First of all I defined a `DiorDataset` class which loads an image and its corres
 The labels are converted into a tensor of shape `(S, S, C + 5 * B)`. For each cell of the grid, it contains `C` probabilities for each class, `B` box confidence scores, and `4 * B` bounding box parameters. The bounding box parameters are normalized for the cell (i.e., they are in [0, 1] relative to the size of the cell).
 
 The code assumes that the label files are in a specific format: 
- `[class label | x_center | y_center | width | height]`
+> `[class label | x_center | y_center | width | height]`
 
 ## 2.	Yolo Loss
 After loading dataset, the next step is to train the network using a loss function which detect bounding box and class probabilies at the same time. From original paper:
@@ -74,3 +74,7 @@ As result I have the following predictions with this shape:
 
     [Predicted class indices | confidence scores | bounding box coordinates]
 
+## 4. Results
+This version obtain a mAP of 0.0022 on test set.
+
+![result](output_img.png)
