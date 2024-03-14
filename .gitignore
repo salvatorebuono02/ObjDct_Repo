@@ -1,6 +1,8 @@
-.venv
+venv
 __pycache__
 raw_data
 dior_data
-datasets
+dataset
 model.pth
+data
+he-man-tenseal

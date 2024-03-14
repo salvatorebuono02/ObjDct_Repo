@@ -3,27 +3,22 @@ This repo implements a lightweight version of YOLOv1 designed to be suitable for
 | Layer (type:depth-idx)        | Output Shape       | Param #    |
 |-------------------------------|--------------------|------------|
 | TinyYOLOv1                    | [1, 1470]          | --         |
-| Sequential: 1-1               | [1, 8, 25, 25]     | --         |
-| Conv2d: 2-1                   | [1, 8, 400, 400]   | 224        |
-| SquareActivation: 2-2         | [1, 8, 400, 400]   | --         |
-| BatchNorm2d: 2-3              | [1, 8, 400, 400]   | 16         |
-| AvgPool2d: 2-4                | [1, 8, 200, 200]   | --         |
-| Conv2d: 2-5                   | [1, 16, 100, 100]  | 1,168      |
-| SquareActivation: 2-6         | [1, 16, 100, 100]  | --         |
-| BatchNorm2d: 2-7              | [1, 16, 100, 100]  | 32         |
-| AvgPool2d: 2-8                | [1, 16, 50, 50]    | --         |
-| Conv2d: 2-9                   | [1, 8, 50, 50]     | 136        |
-| SquareActivation: 2-10        | [1, 8, 50, 50]     | --         |
-| BatchNorm2d: 2-11             | [1, 8, 50, 50]     | 16         |
-| AvgPool2d: 2-12               | [1, 8, 25, 25]     | --         |
-| Flatten: 1-2                  | [1, 5000]          | --         |
-| Linear: 1-3                   | [1, 2048]          | 10,242,048 |
-| SquareActivation: 1-4         | [1, 2048]          | --         |
-| Linear: 1-5                   | [1, 1470]          | 3,012,030  |
+| Conv2d: 1-1                   | [1, 8, 32, 32]     | 224        |
+| SquareActivation: 1-2         | [1, 8, 32, 32]     | --         |
+| BatchNorm2d: 1-3              | [1, 8, 32, 32]     | 16         |
+| AvgPool2d: 1-4                | [1, 8, 16, 16]     | --         |
+| Conv2d: 1-5                   | [1, 16, 8, 8]      | 1,168      |
+| SquareActivation: 1-6         | [1, 16, 8, 8]      | --         |
+| BatchNorm2d: 1-7              | [1, 16, 8, 8]      | 32         |
+| AvgPool2d: 1-8                | [1, 16, 4, 4]      | --         |
+| Flatten: 1-9                  | [1, 5000]          | --         |
+| Linear: 1-10                  | [1, 2048]          | 526,336    |
+| SquareActivation: 1-11        | [1, 2048]          | --         |
+| Linear: 1-12                  | [1, 1470]          | 3,012,030  |
 
->Total params : 13,255,670
+>Total params : 3,539,806
 
->Estimated Total Size (MB): 84.09
+>Estimated Total Size (MB): 14.38
 
 Here's a brief overview of how YOLOv1 works:
 
@@ -40,8 +35,8 @@ Here's a brief overview of how YOLOv1 works:
 
 Overall, YOLOv1 is known for its simplicity and efficiency, as it processes images globally and predicts bounding boxes and class probabilities simultaneously in a single forward pass of a neural network. However, it may struggle with detecting small objects and accurately localizing objects near the boundaries of grid cells.
 
-## 1.	Data Loading
-First of all I defined a `DiorDataset` class which loads an image and its corresponding labels given an index. It reads the image and label files and converts the labels into a suitable format for YOLO.
+## 1.	Data Loading & Preprocessing
+First of all I defined a `DiorDataset` class which loads an image, resize to '(64,64)' and its corresponding labels given an index. It reads the image and label files and converts the labels into a suitable format for YOLO.
 
 The labels are converted into a tensor of shape `(S, S, C + 5 * B)`. For each cell of the grid, it contains `C` probabilities for each class, `B` box confidence scores, and `4 * B` bounding box parameters. The bounding box parameters are normalized for the cell (i.e., they are in [0, 1] relative to the size of the cell).
 
