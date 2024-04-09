@@ -7,3 +7,5 @@ model.pth
 data
 he-man-tenseal
 one_class_dataset
+model.onnx
+.vscode
