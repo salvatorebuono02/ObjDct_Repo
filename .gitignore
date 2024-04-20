@@ -4,9 +4,6 @@ raw_data
 dior_data
 dataset
 model.pth
-data
 he-man-tenseal
 one_class_dataset
-model.onnx
 .vscode
-simple-faster-rcnn-pytorch
