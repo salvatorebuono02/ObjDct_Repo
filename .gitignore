@@ -7,3 +7,5 @@ model.pth
 he-man-tenseal
 one_class_dataset
 .vscode
+backbone.onnx
+fastercnn.pt
