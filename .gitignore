@@ -6,6 +6,7 @@ dataset
 tiny_yolo.pth
 he-man-tenseal
 one_class_dataset
+three_class_dataset
 .vscode
 backbone.onnx
 fastercnn.pt
