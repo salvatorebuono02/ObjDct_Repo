@@ -10,3 +10,4 @@ three_class_dataset
 .vscode
 backbone.onnx
 fastercnn.pt
+fomo.pth
