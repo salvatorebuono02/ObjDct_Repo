@@ -12,3 +12,6 @@ backbone.onnx
 fastercnn.pt
 fomo.pth
 fomo.onnx
+pascal_voc_dataset
+VOCdevkit/VOC2012
+PASCALdata
