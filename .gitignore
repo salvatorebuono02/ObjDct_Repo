@@ -11,3 +11,4 @@ three_class_dataset
 backbone.onnx
 fastercnn.pt
 fomo.pth
+fomo.onnx
