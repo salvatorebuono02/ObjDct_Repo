@@ -16,8 +16,6 @@ fomo.onnx
 pascal_voc_dataset
 VOCdevkit/VOC2012
 PASCALdata
-data
-models
 runs
 tinyissimoyolo.pth
 SAR-Ship-Dataset

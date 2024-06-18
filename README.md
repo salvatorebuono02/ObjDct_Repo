@@ -1,4 +1,5 @@
 # Tiny Yolo 
+
 This repo implements a lightweight version of YOLOv1 designed to be suitable for HE, which has the following architecture:
 
 ![CNN Architecture](images/model.png)
