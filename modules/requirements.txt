@@ -1,1 +1,9 @@
+matplotlib
+torch --index-url https://download.pytorch.org/whl/cpu
+torchvision --index-url https://download.pytorch.org/whl/cpu
+numpy
+tqdm
+opencv-python
+torchinfo
+git-lfs
 --extra-index-url=https://packagecloud.io/github/git-lfs/pypi/simple
