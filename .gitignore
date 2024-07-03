@@ -7,3 +7,5 @@ SAR-Ship-Dataset
 data/ShipDataset
 models/trained_models
 models/FOMO/lightning_logs
+models/FOMO/samples1_encrypted_data
+models/FOMO/secret_key
