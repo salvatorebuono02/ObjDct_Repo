@@ -9,3 +9,4 @@ torchinfo
 pyhelayers
 h5py
 scikit-learn
+lightning

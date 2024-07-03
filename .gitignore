@@ -6,3 +6,4 @@ PASCALdata
 SAR-Ship-Dataset
 data/ShipDataset
 models/trained_models
+models/FOMO/lightning_logs
