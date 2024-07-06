@@ -5,6 +5,8 @@ VOCdevkit/VOC2012
 PASCALdata
 SAR-Ship-Dataset
 data/ShipDataset
+data/HEClient
+data/HEServer
 models/trained_models
 models/FOMO/lightning_logs
 models/FOMO/samples1_encrypted_data
