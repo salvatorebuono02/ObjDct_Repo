@@ -10,3 +10,4 @@ pyhelayers
 h5py
 scikit-learn
 lightning
+runipy
