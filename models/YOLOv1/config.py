@@ -6,7 +6,7 @@ DATA_PATH = 'data/ShipDataset'
 CLASSES_PATH = '/home/buono/ObjDct_Repo/models/YOLOv1/classes.json'
 
 BATCH_SIZE = 64
-EPOCHS = 135
+EPOCHS = 25
 WARMUP_EPOCHS = 0
 LEARNING_RATE = 1E-4
 

@@ -198,7 +198,7 @@ class Probe(nn.Module):
 
 class TinyYOLOv1(nn.Module):
     def __init__(self):
-        super(YOLOv1, self).__init__()
+        super(TinyYOLOv1, self).__init__()
         
         self.model = nn.Sequential(
             # Block 1
@@ -251,7 +251,7 @@ class TinyYOLOv1(nn.Module):
             nn.Flatten(),
             
             # Fully Connected Layers
-            nn.Linear(256 * 7 * 7, config.S * config.S * (config.B * 5 + config.C)),
+            nn.Linear(256 * 4 * 4, config.S * config.S * (config.B * 5 + config.C)),
         )
 
     def forward(self, x):
@@ -273,5 +273,15 @@ def probe_dist(x):
 
 if __name__ == '__main__':
     # Display data
-    model = YOLOv1()
+    model = TinyYOLOv1()
+
+    # Supponendo di avere un input fittizio con una dimensione di input nota
+    # dummy_input = torch.randn(1, 1, 256, 256)  # esempio per un'immagine 224x224 in scala di grigi
+
+
+    # # Passa il dummy_input attraverso il modello fino al Flatten
+    # with torch.no_grad():
+    #     output = model.model[:30](dummy_input)  # Fermati al Flatten
+    #     print(output.shape)
+
     summary(model, (1, 1, 256, 256), device='cpu')

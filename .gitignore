@@ -12,3 +12,6 @@ models/FOMO/lightning_logs
 models/FOMO/samples1_encrypted_data
 models/FOMO/secret_key
 models/TinyYOLO/lightning_logs
+runs
+models/YOLOv1/03_08_2024
+results

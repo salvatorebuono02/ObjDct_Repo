@@ -163,6 +163,90 @@ def get_overlap(a, b):
     ).item()
 
 
+# def plot_boxes(data, labels, classes, color='orange', min_confidence=0.2, max_overlap=0.5, file=None):
+#     """Plots bounding boxes on the given image."""
+
+#     grid_size_x = data.size(dim=2) / config.S
+#     grid_size_y = data.size(dim=1) / config.S
+#     m = labels.size(dim=0)
+#     n = labels.size(dim=1)
+
+#     bboxes = []
+#     for i in range(m):
+#         for j in range(n):
+#             for k in range((labels.size(dim=2) - config.C) // 5):
+#                 bbox_start = 5 * k + config.C
+#                 bbox_end = 5 * (k + 1) + config.C
+#                 bbox = labels[i, j, bbox_start:bbox_end]
+#                 class_index = torch.argmax(labels[i, j, :config.C]).item()
+#                 confidence = labels[i, j, class_index].item() * bbox[4].item()          # pr(c) * IOU
+#                 if confidence > min_confidence:
+#                     width = bbox[2] * config.IMAGE_SIZE[0]
+#                     height = bbox[3] * config.IMAGE_SIZE[1]
+#                     tl = (
+#                         bbox[0] * config.IMAGE_SIZE[0] + j * grid_size_x - width / 2,
+#                         bbox[1] * config.IMAGE_SIZE[1] + i * grid_size_y - height / 2
+#                     )
+#                     bboxes.append([tl, width, height, confidence, class_index])
+
+#     # Sort by highest to lowest confidence
+#     bboxes = sorted(bboxes, key=lambda x: x[3], reverse=True)
+
+#     # Calculate IOUs between each pair of boxes
+#     num_boxes = len(bboxes)
+#     iou = [[0 for _ in range(num_boxes)] for _ in range(num_boxes)]
+#     for i in range(num_boxes):
+#         for j in range(num_boxes):
+#             iou[i][j] = get_overlap(bboxes[i], bboxes[j])
+
+#     # Non-maximum suppression and render image
+#     image = T.ToPILImage()(data)
+#     draw = ImageDraw.Draw(image)
+#     discarded = set()
+#     for i in range(num_boxes):
+#         if i not in discarded:
+#             tl, width, height, confidence, class_index = bboxes[i]
+
+#             # Decrease confidence of other conflicting bboxes
+#             for j in range(num_boxes):
+#                 other_class = bboxes[j][4]
+#                 if j != i and other_class == class_index and iou[i][j] > max_overlap:
+#                     discarded.add(j)
+
+#             # Annotate image
+#             br = (tl[0] + width, tl[1] + height)
+#             if br[0] >= tl[0] and br[1] >= tl[1]:  # Check if coordinates are valid
+#                 draw.rectangle((tl, br), outline=color)
+#                 text_pos = (max(0, tl[0]), max(0, tl[1] - 11))
+#                 text = f'{classes[class_index]} {round(confidence * 100, 1)}%'
+#                 text_bbox = draw.textbbox(text_pos, text)
+#                 draw.rectangle(text_bbox, fill=color)
+#                 draw.text(text_pos, text)
+#             else:
+#                 print(f"Invalid coordinates for bounding box: tl={tl}, br={br}")
+
+#             text_pos = (max(0, tl[0]), max(0, tl[1] - 11))
+#             text = f'{classes[class_index]} {round(confidence * 100, 1)}%'
+#             text_bbox = draw.textbbox(text_pos, text)
+#             draw.rectangle(text_bbox, fill='orange')
+#             draw.text(text_pos, text)
+#     if file is None:
+#         image.show()
+#         image.save('output_image.png')
+#     else:
+#         output_dir = os.path.dirname(file)
+#         if not os.path.exists(output_dir):
+#             os.makedirs(output_dir)
+#         if not file.endswith('.png'):
+#             file += '.png'
+#         image.save(file)
+
+
+import os
+import torch
+from PIL import ImageDraw
+import torchvision.transforms as T
+
 def plot_boxes(data, labels, classes, color='orange', min_confidence=0.2, max_overlap=0.5, file=None):
     """Plots bounding boxes on the given image."""
 
@@ -214,12 +298,17 @@ def plot_boxes(data, labels, classes, color='orange', min_confidence=0.2, max_ov
                     discarded.add(j)
 
             # Annotate image
-            draw.rectangle((tl, (tl[0] + width, tl[1] + height)), outline='orange')
-            text_pos = (max(0, tl[0]), max(0, tl[1] - 11))
-            text = f'{classes[class_index]} {round(confidence * 100, 1)}%'
-            text_bbox = draw.textbbox(text_pos, text)
-            draw.rectangle(text_bbox, fill='orange')
-            draw.text(text_pos, text)
+            br = (tl[0] + width, tl[1] + height)
+            if br[0] >= tl[0] and br[1] >= tl[1]:  # Check if coordinates are valid
+                draw.rectangle((tl, br), outline=color)
+                text_pos = (max(0, tl[0]), max(0, tl[1] - 11))
+                text = f'{classes[class_index]} {round(confidence * 100, 1)}%'
+                text_bbox = draw.textbbox(text_pos, text)
+                draw.rectangle(text_bbox, fill=color)
+                draw.text(text_pos, text)
+            else:
+                print(f"Invalid coordinates for bounding box: tl={tl}, br={br}")
+
     if file is None:
         image.show()
         image.save('output_image.png')

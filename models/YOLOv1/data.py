@@ -55,7 +55,6 @@ class YoloDataset(Dataset):
         for label in labels:
             class_idx, x_center, y_center, width, height = label
             class_idx = int(class_idx)
-
             if self.augment:
                 half_width = config.IMAGE_SIZE[0] / 2
                 half_height = config.IMAGE_SIZE[1] / 2
@@ -98,16 +97,18 @@ if __name__ == '__main__':
     # Display data
     obj_classes = utils.load_class_array()
     print(obj_classes)
-    train_set = YoloDataset('train', normalize=False, augment=True)
+    train_set = YoloDataset('train', normalize=False, augment=False)
 
     negative_labels = 0
     smallest = 0
     largest = 0
     for data, label, _ in train_set:
+        print(label.shape)
         negative_labels += torch.sum(label < 0).item()
         smallest = min(smallest, torch.min(data).item())
         largest = max(largest, torch.max(data).item())
         utils.plot_boxes(data, label, obj_classes, max_overlap=float('inf'))
         break
-    print('num_negatives', negative_labels)
-    print('dist', smallest, largest)
+    # print('num_negatives', negative_labels)
+    # print('dist', smallest, largest)
+
