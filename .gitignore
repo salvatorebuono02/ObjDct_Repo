@@ -7,6 +7,8 @@ SAR-Ship-Dataset
 data/ShipDataset
 data/HEClient
 data/HEServer
+data/calibration_data
+data/calibration_data.zip
 models/trained_models
 models/FOMO/lightning_logs
 models/FOMO/samples1_encrypted_data
